@@ -1,4 +1,4 @@
-const Category = require('./model');
+const Nominal = require('./model');
 
 module.exports = {
 
@@ -12,103 +12,104 @@ module.exports = {
                 status : alertStatus
             }
 
-            const category = await Category.find();
-            console.log(category);
-            res.render('admin/category/view_category', {
-                category,
+            const nominal = await Nominal.find();
+            console.log(nominal);
+            res.render('admin/nominal/view_nominal', {
+                nominal,
                 alert
-
             })
         } catch (err) {
             req.flash('alertMessage',`${err.message}`);
             req.flash('alertStatus','danger');
 
-            res.redirect('/category');
+            res.redirect('/nominal');
             
         }
     },
     
     viewCreate : async(req,res) => {
         try {
-            res.render("admin/category/create");
+            res.render("admin/nominal/create");
         } catch (err) {
             req.flash('alertMessage',`${err.message}`);
             req.flash('alertStatus','danger');
             
-            res.redirect('/category');
+            res.redirect('/nominal');
         }
     },
 
     actionCreate : async (req,res) => {
         try {
-            const {name} = req.body;
-            let category = await Category({name})            
-            await category.save();
+            const {coinName , coinQuantity, price} = req.body;
+            let nominal = await Nominal({coinName , coinQuantity, price})            
+            await nominal.save();
 
-            req.flash('alertMessage',"berhasil tambah kategory");
+            req.flash('alertMessage',"berhasil tambah Nominal");
             req.flash('alertStatus',"success");
 
-            res.redirect('/category');
+            res.redirect('/nominal');
 
         } catch (err) {
             req.flash('alertMessage',`${err.message}`);
             req.flash('alertStatus','danger');
             
-            res.redirect('/category');
+            res.redirect('/nominal');
         }
-    },
+    }, 
+    
     viewEdit : async (req,res)=>{
         try {
             const {id} = req.params;
-            const category = await Category.findOne({_id : id});
-            res.render('admin/category/edit',{
-                category
+            const nominal = await Nominal.findOne({_id : id});
+            res.render('admin/nominal/edit',{
+                nominal
             });
         } catch (err) {
             req.flash('alertMessage',`${err.message}`);
             req.flash('alertStatus','danger');
             
-            res.redirect('/category');
+            res.redirect('/nominal');
         }
     },
+
     actionEdit : async(req,res)=>{
         try {
             const { id } = req.params;
-            const {name} = req.body;
+            const { coinName , coinQuantity, price } = req.body;
 
-            req.flash('alertMessage',"berhasil ubah kategory");
+            req.flash('alertMessage',"berhasil ubah nominal");
             req.flash('alertStatus',"success");
 
-            const category = await Category.findOneAndUpdate({
+            const nominal = await Nominal.findOneAndUpdate({
                 _id : id
-            },{name});
+            },{coinName , coinQuantity, price});
 
 
-            res.redirect('/category');
+            res.redirect('/nominal');
 
         } catch (err) {
             req.flash('alertMessage',`${err.message}`);
             req.flash('alertStatus','danger');
             
-            res.redirect('/category');
+            res.redirect('/nominal');
         }
     },
     actionDelete : async(req,res) => {
         try {
             const {id} = req.params;
-            const category = await Category.findByIdAndRemove({
+            const nominal = await Nominal.findByIdAndRemove({
                 _id : id
             });
 
-            req.flash('alertMessage',"berhasil hapus kategory");
+            req.flash('alertMessage',"berhasil hapus Nominal");
             req.flash('alertStatus',"success");
 
-            res.redirect('/category');
+            res.redirect('/nominal');
         } catch (err) {
             req.flash('alertMessage',`${err.message}`);
             req.flash('alertStatus','danger');
             
-            res.redirect('/category');
+            res.redirect('/nominal');
         }
     }
     

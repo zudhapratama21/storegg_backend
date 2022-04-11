@@ -1,0 +1,57 @@
+<table id="example1" class="table table-bordered table-striped">
+    <thead>
+    <tr>
+      <th>#</th>
+      <th>Tipe Pembayaran</th>
+      <th>Jenis Bank</th>   
+      <th>Status Pembayaran</th>         
+      <th>Action</th>
+    </tr>
+    </thead>    
+    <tbody>      
+      <% for(let i = 0;i< payment.length ;i++){ %>               
+        <tr>
+          <td><%= i+1 %></td>
+          <td><%= payment[i].type %></td>          
+          <td>
+            <% payment[i].bank.forEach(bank => { %>
+                <span class="badge badge-success">
+                  <%= bank.nameBank %> <%= bank.noRekening %>
+                </span>
+            <% }) %>
+          </td> 
+
+          <td>
+            <% if (payment[i].status == 'Y') { %>
+              <span class="badge badge-primary">
+                active
+             </span>             
+            <% } else { %>
+             <span class="badge badge-danger">
+                nonactive
+             </span>
+            <% } %>
+          </td>
+
+          <td class="d-flex item-aligns-center ml-2">
+
+            <form action="/payment/status/<%= payment[i]._id %>?_method=put" method="POST">             
+              <% if (payment[i].status == 'Y') { %>
+                <input type="hidden" name="status" value="N">
+                <button class="btn btn-info btn-sm"><i class="fas fa-eye"></i> Matikan</button>
+              <% } else { %>
+                <input type="hidden" name="status" value="Y">
+                <button class="btn btn-info btn-sm"><i class="fas fa-eye"></i> Hidupkan</button>
+              <% } %>                           
+            </form>
+            
+            <form action="/payment/delete/<%= payment[i]._id %>?_method=delete" method="POST">
+              <a href="/payment/edit/<%= payment[i]._id %>" class="btn btn-warning btn-sm"><i class="fas fa-pencil-alt"></i></a>
+              <button class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>
+            </form>
+
+          </td>
+        </tr>
+      <% } %>
+    </tbody>   
+  </table>

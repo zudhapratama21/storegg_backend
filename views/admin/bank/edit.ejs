@@ -1,0 +1,68 @@
+<%- include ../../partials/header.ejs %>
+<%- include ../../partials/navbar.ejs %>
+<%- include ../../partials/sidebar.ejs %>
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>DataTables</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="/">Home</a></li>
+              <li class="breadcrumb-item "><a href="/nominal">Nominal</a></li>
+              <li class="breadcrumb-item active">Tambah</li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+            <div class="card card-primary">
+                <div class="card-header">
+                  <h3 class="card-title">Tambah Bank</h3>
+                </div>                    
+                <form action="/bank/edit/<%= bank._id %>?_method=put" method="POST" >
+                  <div class="card-body">                  
+                    <div class="form-group">
+                      <label for="exampleInputEmail1">Nama Pemilik</label>
+                      <input type="text" name="name" value="<%= bank.name %>" class="form-control" id="exampleInputEmail1" placeholder="Enter category">
+                    </div>
+
+                    <div class="form-group">
+                      <label for="exampleInputEmail1">Nama Bank</label>
+                      <input type="text" name="bankName" value="<%= bank.bankName %>" class="form-control" id="exampleInputEmail1" placeholder="Enter category">
+                    </div>
+
+                    <div class="form-group">
+                      <label for="exampleInputEmail1">No Rekening</label>
+                      <input type="text" name="noRekening" value="<%= bank.noRekening %>" class="form-control" id="exampleInputEmail1" placeholder="Enter category">
+                    </div>
+                    
+                  </div>                    
+                  <div class="card-footer">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                  </div>
+                </form>
+              </div>       
+          </div>
+          <!-- /.col -->
+        </div>
+        <!-- /.row -->
+      </div>
+      <!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+  </div>
+
+<%- include ../../partials/footer.ejs %>
+<%- include ../../partials/js.ejs %>

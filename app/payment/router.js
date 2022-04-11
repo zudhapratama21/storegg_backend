@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 const { isLoginAdmin } = require('../middleware/auth')
 
-const { index, viewCreate, actionCreate, viewEdit, actionEdit, actionDelete } = require('./controller');
+const { index, viewCreate, actionCreate, viewEdit, actionEdit, actionDelete, actionStatus} = require('./controller');
 
 // middleware
 router.use(isLoginAdmin);
@@ -14,6 +14,7 @@ router.post('/create', actionCreate);
 router.get('/edit/:id', viewEdit);
 router.put('/edit/:id', actionEdit);
 router.delete('/delete/:id', actionDelete);
+router.put('/status/:id', actionStatus);
 
 module.exports = router;
 

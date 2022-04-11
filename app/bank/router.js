@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+
 const { isLoginAdmin } = require('../middleware/auth')
 
 const { index, viewCreate, actionCreate, viewEdit, actionEdit, actionDelete } = require('./controller');

@@ -1,0 +1,105 @@
+<%- include ../../partials/header.ejs %>
+<%- include ../../partials/navbar.ejs %>
+<%- include ../../partials/sidebar.ejs %>
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>DataTables</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="/">Home</a></li>
+              <li class="breadcrumb-item "><a href="/nominal">Nominal</a></li>
+              <li class="breadcrumb-item active">Tambah</li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+            <div class="card card-primary">
+                <div class="card-header">
+                  <h3 class="card-title">Tambah Nominal</h3>
+                </div>                    
+                <form action="/voucher/create" method="POST" enctype="multipart/form-data">
+                  <div class="card-body">
+                    <div class="form-group">
+                      <label>Nama Game </label>
+                      <input type="text" name="name" class="form-control" id="exampleInputEmail1" placeholder="Enter nama game">
+                    </div>
+
+                    <div class="form-group">
+                      <label>Category</label>
+                      <select class="form-control select2" name="category" style="width: 100%;">
+                        <option value="" selected disabled>Pilih Kategori</option>
+                        <% category.forEach(category => { %>
+                          <option value="<%= category._id %>"><%= category.name %></option>
+                        <% }) %>
+                      </select>
+                    </div>
+
+                    <div class="form-group">
+                      <label>Nominal</label>
+                      <div class="select2-purple">
+                        <select class="form-control select2" name="nominal" multiple="multiple" style="width: 100%;">                          
+                          <% nominal.forEach(nominal => { %>
+                            <option value="<%= nominal._id %>"><%= nominal.coinName  %> <%= nominal.price %> </option>
+                          <% }) %>
+                        </select>
+                      </div>                    
+                    </div>
+
+                    <div class="form-group">
+                      <label for="exampleInputEmail1">Gambar</label>
+                      <input type="file" name="image" class="form-control" id="image" placeholder="Enter your image">
+                      <br>
+                      <img src="" id="overview">
+                    </div>                 
+                    
+                  </div>                    
+                  <div class="card-footer">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                  </div>
+                </form>
+              </div>       
+          </div>
+          <!-- /.col -->
+        </div>
+        <!-- /.row -->
+      </div>
+      <!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+  </div>
+
+<%- include ../../partials/footer.ejs %>
+<%- include ../../partials/js.ejs %>
+<script>
+   function readUrl(input) {
+     if (input.files && input.files[0]) {
+       const reader = new FileReader();
+
+       reader.onload = function (e) {
+         $('#overview').attr('src',e.target.result);
+         $('#overview').attr('width','20%');
+         $('#overview').attr('height','20%');        
+       }
+       reader.readAsDataURL(input.files[0]);
+
+     }
+   }
+
+   $('#image').change(function () {
+     readUrl(this);
+   })
+</script>
