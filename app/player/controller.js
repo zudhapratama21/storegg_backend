@@ -32,7 +32,9 @@ module.exports = {
 
             const {id} = req.params;
 
-            const payment = await Payment.find();
+            const payment = await Payment.find()
+                        .populate('banks');
+
             const voucher = await Voucher.findOne({ _id : id })
                         .select('_id name status category thumbnail')
                         .populate('category')            
